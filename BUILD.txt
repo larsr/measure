@@ -1,0 +1,19 @@
+
+DIR=$(pwd)/measure
+git clone --recursive git://github.com/larsr/measure.git $DIR
+
+mkdir -p $DIR/{build/{llvm,bochs},install}
+export PATH=$DIR/install/bin:$PATH
+
+pushd $DIR/build/llvm
+$DIR/llvm/configure --enable-targets=x86 --enable-optimized --prefix=$DIR/install
+make -j8
+make install
+popd
+
+pushd $DIR/build/bochs
+$DIR/bochs/configure CXX=clang++ CXXFLAGS="-g $(llvm-config --cxxflags)" LDFLAGS="$(llvm-config --ldflags) $(llvm-config --libs all)" --prefix=$DIR/install --without-x11 --with-term --enable-pci --enable-acpi --with-rfb --enable-all-optimizations --enable-pnic --enable-gdb-stub --enable-ne2000
+make -j8
+make install
+popd
+
