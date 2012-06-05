@@ -1,4 +1,6 @@
 
+### To build
+
 DIR=$(pwd)/measure
 git clone --recursive git://github.com/larsr/measure.git $DIR
 
@@ -17,6 +19,14 @@ make -j8
 make install
 popd
 
+
+### To Run
+
 cd $DIR/bochs/lars
-cp ../llvmcpu.bc .
+cp $DIR/build/bochs/llvmcpu.bc .
+
+# Remember to set the path to the hdd.img in bochsrc
+# If you don't have tuntap, comment out the ne2k networking stuff
+
 sudo $(which bochs) -f bochsrc -q
+
