@@ -1,0 +1,6 @@
+[submodule "bochs"]
+	path = bochs
+	url = git://github.com/larsr/bochs.git
+[submodule "llvm"]
+	path = llvm
+	url = git://github.com/larsr/llvm.git
