@@ -17,3 +17,6 @@ make -j8
 make install
 popd
 
+cd $DIR/bochs/lars
+cp ../llvmcpu.bc .
+sudo $(which bochs) -f bochsrc -q
