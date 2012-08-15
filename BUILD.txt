@@ -14,7 +14,11 @@ make install
 popd
 
 pushd $DIR/build/bochs
-$DIR/bochs/configure CXX=clang++ CXXFLAGS="-g $(llvm-config --cxxflags)" LDFLAGS="$(llvm-config --ldflags) $(llvm-config --libs all)" --prefix=$DIR/install --without-x11 --with-term --enable-pci --enable-acpi --with-rfb --enable-all-optimizations --enable-pnic --enable-gdb-stub --enable-ne2000
+$DIR/bochs/configure CXX=clang++ CXXFLAGS="-g $(llvm-config --cxxflags)" \
+ LDFLAGS="$(llvm-config --ldflags) $(llvm-config --libs all)" \
+ --prefix=$DIR/install --without-x11 --with-term --enable-pci --with-rfb \
+ --enable-all-optimizations --enable-pnic --enable-gdb-stub --enable-ne2000 \
+ --disable-monitor_mwait --enable-sb16 --enable-usb
 make -j8
 make install
 popd
@@ -22,7 +26,7 @@ popd
 
 ### To Run
 
-cd $DIR/bochs/lars
+cd $DIR/bochs/integrity
 cp $DIR/build/bochs/llvmcpu.bc .
 
 # Remember to set the path to the hdd.img in bochsrc
